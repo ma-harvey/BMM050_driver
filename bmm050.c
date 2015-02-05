@@ -277,7 +277,7 @@ u8 v_functional_state_u8)
 			com_rslt += p_bmm050->BMM050_BUS_READ_FUNC(
 			p_bmm050->dev_addr,
 			BMM050_CONTROL_OPERATION_MODE__REG,
-			&v_data_u8, C_BMM050_ZERO_U8X);
+			&v_data_u8, C_BMM050_ONE_U8X);
 			v_data_u8 = BMM050_SET_BITSLICE(
 			v_data_u8,
 			BMM050_CONTROL_OPERATION_MODE,
@@ -285,7 +285,7 @@ u8 v_functional_state_u8)
 			com_rslt += p_bmm050->BMM050_BUS_WRITE_FUNC(
 			p_bmm050->dev_addr,
 			BMM050_CONTROL_OPERATION_MODE__REG,
-			&v_data_u8, C_BMM050_ZERO_U8X);
+			&v_data_u8, C_BMM050_ONE_U8X);
 			break;
 		case BMM050_SUSPEND_MODE:
 			com_rslt = bmm050_set_power_mode(BMM050_OFF);
@@ -300,14 +300,14 @@ u8 v_functional_state_u8)
 			com_rslt += p_bmm050->BMM050_BUS_READ_FUNC(
 			p_bmm050->dev_addr,
 			BMM050_CONTROL_OPERATION_MODE__REG,
-			&v_data_u8, C_BMM050_ZERO_U8X);
+			&v_data_u8, C_BMM050_ONE_U8X);
 			v_data_u8 = BMM050_SET_BITSLICE(
 			v_data_u8,
 			BMM050_CONTROL_OPERATION_MODE, BMM050_ON);
 			com_rslt += p_bmm050->BMM050_BUS_WRITE_FUNC(
 			p_bmm050->dev_addr,
 			BMM050_CONTROL_OPERATION_MODE__REG,
-			&v_data_u8, C_BMM050_ZERO_U8X);
+			&v_data_u8, C_BMM050_ONE_U8X);
 			break;
 		case BMM050_SLEEP_MODE:
 			bmm050_get_power_mode(&v_data_u8);
@@ -319,7 +319,7 @@ u8 v_functional_state_u8)
 			com_rslt += p_bmm050->BMM050_BUS_READ_FUNC(
 			p_bmm050->dev_addr,
 			BMM050_CONTROL_OPERATION_MODE__REG,
-			&v_data_u8, C_BMM050_ZERO_U8X);
+			&v_data_u8, C_BMM050_ONE_U8X);
 			v_data_u8 = BMM050_SET_BITSLICE(
 			v_data_u8,
 			BMM050_CONTROL_OPERATION_MODE,
@@ -327,7 +327,7 @@ u8 v_functional_state_u8)
 			com_rslt += p_bmm050->BMM050_BUS_WRITE_FUNC(
 			p_bmm050->dev_addr,
 			BMM050_CONTROL_OPERATION_MODE__REG,
-			&v_data_u8, C_BMM050_ZERO_U8X);
+			&v_data_u8, C_BMM050_ONE_U8X);
 			break;
 		default:
 			com_rslt = E_BMM050_OUT_OF_RANGE;
