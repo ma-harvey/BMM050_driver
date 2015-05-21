@@ -23,9 +23,9 @@ INTRODUCTION
 VERSION
 =========
 	- Version of bmm050 sensor driver is:
-		* bmm050.c 		- V2.0.3
-		* bmm050.h 		- V2.0.3
-		* bmm050_support.c 	- V1.0.4
+		* bmm050.c 		- V2.0.4
+		* bmm050.h 		- V2.0.4
+		* bmm050_support.c 	- V1.0.5
 
 INTEGRATION DETAILS
 =====================
@@ -62,6 +62,6 @@ SUPPORTED SENSOR INTERFACE
 
 COPYRIGHT
 ===========
-	- Copyright (C) 2011 - 2014 Bosch Sensortec GmbH
+	- Copyright (C) 2011 - 2015 Bosch Sensortec GmbH
 
 

@@ -1,10 +1,10 @@
 /*
 ****************************************************************************
-* Copyright (C) 2014 Bosch Sensortec GmbH
+* Copyright (C) 2014 - 2015 Bosch Sensortec GmbH
 *
 * bmm050_support.c
-* Date: 2014/12/12
-* Revision: 1.0.4 $
+* Date: 2015/05/21
+* Revision: 1.0.5 $
 *
 * Usage: Sensor Driver support file for  BMM050 and BMM150 sensor
 *
@@ -134,9 +134,9 @@ s32 bmm050_data_readout_template(void)
 	/* Structure used for read the mag xyz data with float output*/
 	struct bmm050_mag_data_float_t data_float;
 	/* Variable used to get the data rate*/
-	u8 v_data_rate_u8 = BMM050_ZERO_U8X;
+	u8 v_data_rate_u8 = BMM050_INIT_VALUE;
 	/* Variable used to set the data rate*/
-	u8 v_data_rate_value_u8 = BMM050_ZERO_U8X;
+	u8 v_data_rate_value_u8 = BMM050_INIT_VALUE;
 	/* result of communication results*/
 	s32 com_rslt = ERROR;
 
@@ -162,7 +162,7 @@ s32 bmm050_data_readout_template(void)
 /*	For initialization it is required to set the mode of
  *	the sensor as "NORMAL"
  *	but before set the mode needs to configure the power control bit
- *	in the register 0x4B bit BMM050_ZERO_U8X should be enabled
+ *	in the register 0x4B bit BMM050_INIT_VALUE should be enabled
  *	This bit is enabled by calling bmm050_init function
  *	For the Normal data acquisition/read/write is possible in this mode
  *	by using the below API able to set the power mode as NORMAL*/
@@ -207,7 +207,7 @@ s32 bmm050_data_readout_template(void)
 *-------------------------------------------------------------------------*/
 /*	For de-initialization it is required to set the mode of
  *	the sensor as "SUSPEND"
- *	the SUSPEND mode set from the register 0x4B bit BMM050_ZERO_U8X should be disabled
+ *	the SUSPEND mode set from the register 0x4B bit BMM050_INIT_VALUE should be disabled
  *	by using the below API able to set the power mode as SUSPEND*/
 	/* Set the power mode as SUSPEND*/
 	com_rslt += bmm050_set_functional_state(BMM050_SUSPEND_MODE);
@@ -235,7 +235,7 @@ s8 I2C_routine(void) {
 	bmm050_t.delay_msec = BMM050_delay_msek;
 	bmm050_t.dev_addr = BMM050_I2C_ADDRESS;
 
-	return BMM050_ZERO_U8X;
+	return BMM050_INIT_VALUE;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -254,7 +254,7 @@ s8 SPI_routine(void) {
 	bmm050_t.bus_read = BMM050_SPI_bus_read;
 	bmm050_t.delay_msec = BMM050_delay_msek;
 
-	return BMM050_ZERO_U8X;
+	return BMM050_INIT_VALUE;
 }
 
 /************** SPI/I2C buffer length ******/
@@ -263,6 +263,8 @@ s8 SPI_routine(void) {
 #define MASK_DATA1	0xFF
 #define MASK_DATA2	0x80
 #define MASK_DATA3	0x7F
+#define	C_BMM050_ONE_U8X	(1)
+#define	C_BMM050_TWO_U8X	(2)
 
 /*-------------------------------------------------------------------*
 *
@@ -281,11 +283,11 @@ s8 SPI_routine(void) {
  */
 s8 BMM050_I2C_bus_write(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
 {
-	s32 iError = BMM050_ZERO_U8X;
+	s32 iError = BMM050_INIT_VALUE;
 	u8 array[I2C_BUFFER_LEN];
-	u8 stringpos = BMM050_ZERO_U8X;
-	array[BMM050_ZERO_U8X] = reg_addr;
-	for (stringpos = BMM050_ZERO_U8X; stringpos < cnt; stringpos++) {
+	u8 stringpos = BMM050_INIT_VALUE;
+	array[BMM050_INIT_VALUE] = reg_addr;
+	for (stringpos = BMM050_INIT_VALUE; stringpos < cnt; stringpos++) {
 		array[stringpos + C_BMM050_ONE_U8X] = *(reg_data + stringpos);
 	}
 	/*
@@ -295,7 +297,7 @@ s8 BMM050_I2C_bus_write(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
 	* add your I2C write function here
 	* iError is an return value of I2C read function
 	* Please select your valid return value
-	* In the driver SUCCESS defined as BMM050_ZERO_U8X
+	* In the driver SUCCESS defined as BMM050_INIT_VALUE
     * and FAILURE defined as -C_BMM050_ONE_U8X
 	* Note :
 	* This is a full duplex operation,
@@ -315,20 +317,20 @@ s8 BMM050_I2C_bus_write(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
  */
 s8 BMM050_I2C_bus_read(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
 {
-	s32 iError = BMM050_ZERO_U8X;
-	u8 array[I2C_BUFFER_LEN] = {BMM050_ZERO_U8X};
-	u8 stringpos = BMM050_ZERO_U8X;
-	array[BMM050_ZERO_U8X] = reg_addr;
+	s32 iError = BMM050_INIT_VALUE;
+	u8 array[I2C_BUFFER_LEN] = {BMM050_INIT_VALUE};
+	u8 stringpos = BMM050_INIT_VALUE;
+	array[BMM050_INIT_VALUE] = reg_addr;
 	/* Please take the below function as your reference
 	 * for read the data using I2C communication
 	 * add your I2C rad function here.
 	 * "IERROR = I2C_WRITE_READ_STRING(DEV_ADDR, ARRAY, ARRAY, C_BMM050_ONE_U8X, CNT)"
 	 * iError is an return value of SPI write function
 	 * Please select your valid return value
-	 * In the driver SUCCESS defined as BMM050_ZERO_U8X
+	 * In the driver SUCCESS defined as BMM050_INIT_VALUE
      * and FAILURE defined as -C_BMM050_ONE_U8X
 	 */
-	for (stringpos = BMM050_ZERO_U8X; stringpos < cnt; stringpos++) {
+	for (stringpos = BMM050_INIT_VALUE; stringpos < cnt; stringpos++) {
 		*(reg_data + stringpos) = array[stringpos];
 	}
 	return (s8)iError;
@@ -343,13 +345,13 @@ s8 BMM050_I2C_bus_read(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
  */
 s8 BMM050_SPI_bus_read(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
 {
-	s32 iError=BMM050_ZERO_U8X;
+	s32 iError=BMM050_INIT_VALUE;
 	u8 array[SPI_BUFFER_LEN]={MASK_DATA1};
 	u8 stringpos;
 	/*	For the SPI mode only 7 bits of register addresses are used.
 	The MSB of register address is declared the bit what functionality it is
-	read/write (read as C_BMM050_ONE_U8X/write as BMM050_ZERO_U8X)*/
-	array[BMM050_ZERO_U8X] = reg_addr|MASK_DATA2;/*read routine is initiated register address is mask with 0x80*/
+	read/write (read as C_BMM050_ONE_U8X/write as BMM050_INIT_VALUE)*/
+	array[BMM050_INIT_VALUE] = reg_addr|MASK_DATA2;/*read routine is initiated register address is mask with 0x80*/
 	/*
 	* Please take the below function as your reference for
 	* read the data using SPI communication
@@ -357,7 +359,7 @@ s8 BMM050_SPI_bus_read(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
 	* add your SPI read function here
 	* iError is an return value of SPI read function
 	* Please select your valid return value
-	* In the driver SUCCESS defined as BMM050_ZERO_U8X
+	* In the driver SUCCESS defined as BMM050_INIT_VALUE
     * and FAILURE defined as -1
 	* Note :
 	* This is a full duplex operation,
@@ -366,7 +368,7 @@ s8 BMM050_SPI_bus_read(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
 	* and write string function
 	* For more information please refer data sheet SPI communication:
 	*/
-	for (stringpos = BMM050_ZERO_U8X; stringpos < cnt; stringpos++) {
+	for (stringpos = BMM050_INIT_VALUE; stringpos < cnt; stringpos++) {
 		*(reg_data + stringpos) = array[stringpos+C_BMM050_ONE_U8X];
 	}
 	return (s8)iError;
@@ -382,12 +384,12 @@ s8 BMM050_SPI_bus_read(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
  */
 s8 BMM050_SPI_bus_write(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
 {
-	s32 iError = BMM050_ZERO_U8X;
+	s32 iError = BMM050_INIT_VALUE;
 	u8 array[SPI_BUFFER_LEN * C_BMM050_TWO_U8X];
-	u8 stringpos = BMM050_ZERO_U8X;
-	for (stringpos = BMM050_ZERO_U8X; stringpos < cnt; stringpos++) {
+	u8 stringpos = BMM050_INIT_VALUE;
+	for (stringpos = BMM050_INIT_VALUE; stringpos < cnt; stringpos++) {
 		/* the operation of (reg_addr++)&0x7F done: because it ensure the
-		   BMM050_ZERO_U8X and C_BMM050_ONE_U8X of the given value
+		   BMM050_INIT_VALUE and C_BMM050_ONE_U8X of the given value
 		   It is done only for 8bit operation*/
 		array[stringpos * C_BMM050_TWO_U8X] = (reg_addr++) & MASK_DATA3;
 		array[stringpos * C_BMM050_TWO_U8X + C_BMM050_ONE_U8X] = *(reg_data + stringpos);
@@ -398,7 +400,7 @@ s8 BMM050_SPI_bus_write(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
 	 * "IERROR = SPI_WRITE_STRING(ARRAY, CNT*C_BMM050_TWO_U8X)"
 	 * iError is an return value of SPI write function
 	 * Please select your valid return value
-     * In the driver SUCCESS defined as BMM050_ZERO_U8X
+     * In the driver SUCCESS defined as BMM050_INIT_VALUE
      * and FAILURE defined as -1
 	 */
 	return (s8)iError;

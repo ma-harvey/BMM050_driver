@@ -1,13 +1,13 @@
 /** \mainpage
 *
 ****************************************************************************
-* Copyright (C) 2011 - 2014 Bosch Sensortec GmbH
+* Copyright (C) 2011 - 2015 Bosch Sensortec GmbH
 *
 * File : bmm050.h
 *
-* Date : 2014/12/12
+* Date : 2015/05/21
 *
-* Revision : 2.0.3 $
+* Revision : 2.0.4 $
 *
 * Usage: Sensor Driver for BMM050 and BMM150 sensor
 *
@@ -62,8 +62,10 @@
 
 /*!
 * @brief For Enabling and Disabling the floating point API's
+* If your platform supports the FLOAT support, please enable this
+* macro
 */
-#define ENABLE_FLOAT
+/*#define ENABLE_FLOAT*/
 
 /*!
 * @brief The following definition uses for define the data types
@@ -166,7 +168,7 @@ typedef	signed char  s8;/**< used for signed 8bit */
 typedef	signed short int s16;/**< used for signed 16bit */
 typedef	signed long int s32;/**< used for signed 32bit */
 
-#if defined(LONG_MAX) && LONG_MAX == 0x7fffffffffffffffL
+#if defined(LONG_MAX) && (LONG_MAX == 0x7fffffffffffffffL)
 typedef long int s64;/**< used for signed 64bit */
 typedef unsigned long int u64;/**< used for unsigned 64bit */
 #elif defined(LLONG_MAX) && (LLONG_MAX == 0x7fffffffffffffffLL)
@@ -367,7 +369,7 @@ delay_func(delay_in_msec)
 /***************************************************************/
 /**\name	I2C ADDRESS DEFINITIONS        */
 /***************************************************************/
-#define BMM050_I2C_ADDRESS                 0x10
+#define BMM050_I2C_ADDRESS                 (0x10)
 /***************************************************************/
 /**\name	REGISTER ADDRESS DEFINITION        */
 /***************************************************************/
@@ -375,323 +377,325 @@ delay_func(delay_in_msec)
 /**\name	CHIP ID       */
 /********************************************/
 /* Fixed Data Registers */
-#define BMM050_CHIP_ID                     0x40
+#define BMM050_CHIP_ID                     (0x40)
 /********************************************/
 /**\name	DATA REGISTERS       */
 /********************************************/
 /* Data Registers*/
-#define BMM050_DATAX_LSB                   0x42
-#define BMM050_DATAX_MSB                   0x43
-#define BMM050_DATAY_LSB                   0x44
-#define BMM050_DATAY_MSB                   0x45
-#define BMM050_DATAZ_LSB                   0x46
-#define BMM050_DATAZ_MSB                   0x47
-#define BMM050_R_LSB                       0x48
-#define BMM050_R_MSB                       0x49
+#define BMM050_DATA_X_LSB                   (0x42)
+#define BMM050_DATA_X_MSB                   (0x43)
+#define BMM050_DATA_Y_LSB                   (0x44)
+#define BMM050_DATA_Y_MSB                   (0x45)
+#define BMM050_DATA_Z_LSB                   (0x46)
+#define BMM050_DATA_Z_MSB                   (0x47)
+#define BMM050_DATA_R_LSB                   (0x48)
+#define BMM050_DATA_R_MSB                   (0x49)
 /********************************************/
 /**\name	REMAPPED DATA REGISTERS      */
 /********************************************/
 /* Data Registers for remapped axis(XandY)
  * this only applicable for BMX055 */
-#define BMM050_BMX055_REMAPPED_DATAY_LSB      0x42
-#define BMM050_BMX055_REMAPPED_DATAY_MSB      0x43
-#define BMM050_BMX055_REMAPPED_DATAX_LSB      0x44
-#define BMM050_BMX055_REMAPPED_DATAX_MSB      0x45
+#define BMM050_REMAPPED_BMX055_DATA_Y_LSB      (0x42)
+#define BMM050_REMAPPED_BMX055_DATA_Y_MSB      (0x43)
+#define BMM050_REMAPPED_BMX055_DATA_X_LSB      (0x44)
+#define BMM050_REMAPPED_BMX055_DATA_X_MSB      (0x45)
 /********************************************/
 /**\name	INTERRUPT STATUS      */
 /********************************************/
 /* Status Registers */
-#define BMM050_INT_STAT                    0x4A
+#define BMM050_INT_STAT_REG                    (0x4A)
 /********************************************/
 /**\name	POWER MODE DEFINITIONS      */
 /********************************************/
 /* Control Registers */
-#define BMM050_POWER_CONTROL               0x4B
-#define BMM050_CONTROL                     0x4C
-#define BMM050_INT_CONTROL                 0x4D
-#define BMM050_SENS_CONTROL                0x4E
-#define BMM050_LOW_THRES                   0x4F
-#define BMM050_HIGH_THRES                  0x50
+#define BMM050_POWER_CONTROL               (0x4B)
+#define BMM050_CONTROL                     (0x4C)
+#define BMM050_INT_CONTROL                 (0x4D)
+#define BMM050_SENS_CONTROL                (0x4E)
+#define BMM050_LOW_THRES                   (0x4F)
+#define BMM050_HIGH_THRES                  (0x50)
 /********************************************/
 /**\name XY AND Z REPETITIONS DEFINITIONS  */
 /********************************************/
-#define BMM050_REP_XY                      0x51
-#define BMM050_REP_Z                       0x52
+#define BMM050_REP_XY                      (0x51)
+#define BMM050_REP_Z                       (0x52)
 /********************************************/
 /**\name	TRIM REGISTERS      */
 /********************************************/
 /* Trim Extended Registers */
-#define BMM050_DIG_X1                      0x5D
-#define BMM050_DIG_Y1                      0x5E
-#define BMM050_DIG_Z4_LSB                  0x62
-#define BMM050_DIG_Z4_MSB                  0x63
-#define BMM050_DIG_X2                      0x64
-#define BMM050_DIG_Y2                      0x65
-#define BMM050_DIG_Z2_LSB                  0x68
-#define BMM050_DIG_Z2_MSB                  0x69
-#define BMM050_DIG_Z1_LSB                  0x6A
-#define BMM050_DIG_Z1_MSB                  0x6B
-#define BMM050_DIG_XYZ1_LSB                0x6C
-#define BMM050_DIG_XYZ1_MSB                0x6D
-#define BMM050_DIG_Z3_LSB                  0x6E
-#define BMM050_DIG_Z3_MSB                  0x6F
-#define BMM050_DIG_XY2                     0x70
-#define BMM050_DIG_XY1                     0x71
+#define BMM050_DIG_X1                      (0x5D)
+#define BMM050_DIG_Y1                      (0x5E)
+#define BMM050_DIG_Z4_LSB                  (0x62)
+#define BMM050_DIG_Z4_MSB                  (0x63)
+#define BMM050_DIG_X2                      (0x64)
+#define BMM050_DIG_Y2                      (0x65)
+#define BMM050_DIG_Z2_LSB                  (0x68)
+#define BMM050_DIG_Z2_MSB                  (0x69)
+#define BMM050_DIG_Z1_LSB                  (0x6A)
+#define BMM050_DIG_Z1_MSB                  (0x6B)
+#define BMM050_DIG_XYZ1_LSB                (0x6C)
+#define BMM050_DIG_XYZ1_MSB                (0x6D)
+#define BMM050_DIG_Z3_LSB                  (0x6E)
+#define BMM050_DIG_Z3_MSB                  (0x6F)
+#define BMM050_DIG_XY2                     (0x70)
+#define BMM050_DIG_XY1                     (0x71)
 
 /********************************************/
 /**\name BIT MASK, LENGTH AND POSITION OF DATA REGISTERS   */
 /********************************************/
 /* Data X LSB Register */
-#define BMM050_DATAX_LSB_VALUEX__POS        3
-#define BMM050_DATAX_LSB_VALUEX__LEN        5
-#define BMM050_DATAX_LSB_VALUEX__MSK        0xF8
-#define BMM050_DATAX_LSB_VALUEX__REG        BMM050_DATAX_LSB
+#define BMM050_DATA_X_LSB_BIT__POS        (3)
+#define BMM050_DATA_X_LSB_BIT__LEN        (5)
+#define BMM050_DATA_X_LSB_BIT__MSK        (0xF8)
+#define BMM050_DATA_X_LSB_BIT__REG        (BMM050_DATA_X_LSB)
 
 /* Data X SelfTest Register */
-#define BMM050_DATAX_LSB_TESTX__POS         0
-#define BMM050_DATAX_LSB_TESTX__LEN         1
-#define BMM050_DATAX_LSB_TESTX__MSK         0x01
-#define BMM050_DATAX_LSB_TESTX__REG         BMM050_DATAX_LSB
+#define BMM050_DATA_X_LSB_TESTX__POS         (0)
+#define BMM050_DATA_X_LSB_TESTX__LEN         (1)
+#define BMM050_DATA_X_LSB_TESTX__MSK         (0x01)
+#define BMM050_DATA_X_LSB_TESTX__REG         (BMM050_DATA_X_LSB)
 
 /* Data Y LSB Register */
-#define BMM050_DATAY_LSB_VALUEY__POS        3
-#define BMM050_DATAY_LSB_VALUEY__LEN        5
-#define BMM050_DATAY_LSB_VALUEY__MSK        0xF8
-#define BMM050_DATAY_LSB_VALUEY__REG        BMM050_DATAY_LSB
+#define BMM050_DATA_Y_LSB_BIT__POS        (3)
+#define BMM050_DATA_Y_LSB_BIT__LEN        (5)
+#define BMM050_DATA_Y_LSB_BIT__MSK        (0xF8)
+#define BMM050_DATA_Y_LSB_BIT__REG        (BMM050_DATA_Y_LSB)
 
 /* Data Y SelfTest Register */
-#define BMM050_DATAY_LSB_TESTY__POS         0
-#define BMM050_DATAY_LSB_TESTY__LEN         1
-#define BMM050_DATAY_LSB_TESTY__MSK         0x01
-#define BMM050_DATAY_LSB_TESTY__REG         BMM050_DATAY_LSB
+#define BMM050_DATA_Y_LSB_TESTY__POS         (0)
+#define BMM050_DATA_Y_LSB_TESTY__LEN         (1)
+#define BMM050_DATA_Y_LSB_TESTY__MSK         (0x01)
+#define BMM050_DATA_Y_LSB_TESTY__REG         (BMM050_DATA_Y_LSB)
 
 /* Data Z LSB Register */
-#define BMM050_DATAZ_LSB_VALUEZ__POS        1
-#define BMM050_DATAZ_LSB_VALUEZ__LEN        7
-#define BMM050_DATAZ_LSB_VALUEZ__MSK        0xFE
-#define BMM050_DATAZ_LSB_VALUEZ__REG        BMM050_DATAZ_LSB
+#define BMM050_DATA_Z_LSB_BIT__POS        (1)
+#define BMM050_DATA_Z_LSB_BIT__LEN        (7)
+#define BMM050_DATA_Z_LSB_BIT__MSK        (0xFE)
+#define BMM050_DATA_Z_LSB_BIT__REG        (BMM050_DATA_Z_LSB)
 
 /* Data Z SelfTest Register */
-#define BMM050_DATAZ_LSB_TESTZ__POS         0
-#define BMM050_DATAZ_LSB_TESTZ__LEN         1
-#define BMM050_DATAZ_LSB_TESTZ__MSK         0x01
-#define BMM050_DATAZ_LSB_TESTZ__REG         BMM050_DATAZ_LSB
+#define BMM050_DATA_Z_LSB_TESTZ__POS         (0)
+#define BMM050_DATA_Z_LSB_TESTZ__LEN         (1)
+#define BMM050_DATA_Z_LSB_TESTZ__MSK         (0x01)
+#define BMM050_DATA_Z_LSB_TESTZ__REG         (BMM050_DATA_Z_LSB)
 
 /* Hall Resistance LSB Register */
-#define BMM050_R_LSB_VALUE__POS             2
-#define BMM050_R_LSB_VALUE__LEN             6
-#define BMM050_R_LSB_VALUE__MSK             0xFC
-#define BMM050_R_LSB_VALUE__REG             BMM050_R_LSB
+#define BMM050_DATA_R_LSB_BIT__POS             (2)
+#define BMM050_DATA_R_LSB_BIT__LEN             (6)
+#define BMM050_DATA_R_LSB_BIT__MSK             (0xFC)
+#define BMM050_DATA_R_LSB_BIT__REG             (BMM050_DATA_R_LSB)
 
-#define BMM050_DATA_RDYSTAT__POS            0
-#define BMM050_DATA_RDYSTAT__LEN            1
-#define BMM050_DATA_RDYSTAT__MSK            0x01
-#define BMM050_DATA_RDYSTAT__REG            BMM050_R_LSB
+#define BMM050_DATA_RDYSTAT__POS            (0)
+#define BMM050_DATA_RDYSTAT__LEN            (1)
+#define BMM050_DATA_RDYSTAT__MSK            (0x01)
+#define BMM050_DATA_RDYSTAT__REG            (BMM050_DATA_R_LSB)
 /********************************************/
 /**\name BIT MASK, LENGTH AND POSITION OF REMAPPED DATA REGISTERS   */
 /********************************************/
 /* Data X LSB Remapped Register only applicable for BMX055 */
-#define BMM050_BMX055_REMAPPED_DATAX_LSB_VALUEX__POS        3
-#define BMM050_BMX055_REMAPPED_DATAX_LSB_VALUEX__LEN        5
-#define BMM050_BMX055_REMAPPED_DATAX_LSB_VALUEX__MSK        0xF8
-#define BMM050_BMX055_REMAPPED_DATAX_LSB_VALUEX__REG\
-BMM050_BMX055_REMAPPED_DATAX_LSB
+#define BMM050_REMAPPED_BMX055_DATA_X_LSB_BIT__POS        (3)
+#define BMM050_REMAPPED_BMX055_DATA_X_LSB_BIT__LEN        (5)
+#define BMM050_REMAPPED_BMX055_DATA_X_LSB_BIT__MSK        (0xF8)
+#define BMM050_REMAPPED_BMX055_DATA_X_LSB_BIT__REG\
+(BMM050_REMAPPED_BMX055_DATA_X_LSB)
 
 /* Data Y LSB Remapped Register only applicable for BMX055  */
-#define BMM050_BMX055_REMAPPED_DATAY_LSB_VALUEY__POS        3
-#define BMM050_BMX055_REMAPPED_DATAY_LSB_VALUEY__LEN        5
-#define BMM050_BMX055_REMAPPED_DATAY_LSB_VALUEY__MSK        0xF8
-#define BMM050_BMX055_REMAPPED_DATAY_LSB_VALUEY__REG\
-BMM050_BMX055_REMAPPED_DATAY_LSB
+#define BMM050_REMAPPED_BMX055_DATA_Y_LSB_BIT__POS        (3)
+#define BMM050_REMAPPED_BMX055_DATA_Y_LSB_BIT__LEN        (5)
+#define BMM050_REMAPPED_BMX055_DATA_Y_LSB_BIT__MSK        (0xF8)
+#define BMM050_REMAPPED_BMX055_DATA_Y_LSB_BIT__REG\
+(BMM050_REMAPPED_BMX055_DATA_Y_LSB)
 /********************************************/
 /**\name BIT MASK, LENGTH AND POSITION OF INTERRUPT STATUS REGISTERS   */
 /********************************************/
 /* Interrupt Status Register */
-#define BMM050_INT_STAT_DOR__POS            7
-#define BMM050_INT_STAT_DOR__LEN            1
-#define BMM050_INT_STAT_DOR__MSK            0x80
-#define BMM050_INT_STAT_DOR__REG            BMM050_INT_STAT
+#define BMM050_INT_STAT_DOR__POS            (7)
+#define BMM050_INT_STAT_DOR__LEN            (1)
+#define BMM050_INT_STAT_DOR__MSK            (0x80)
+#define BMM050_INT_STAT_DOR__REG            (BMM050_INT_STAT_REG)
 
-#define BMM050_INT_STAT_OVRFLOW__POS        6
-#define BMM050_INT_STAT_OVRFLOW__LEN        1
-#define BMM050_INT_STAT_OVRFLOW__MSK        0x40
-#define BMM050_INT_STAT_OVRFLOW__REG        BMM050_INT_STAT
+#define BMM050_INT_STAT_OVRFLOW__POS        (6)
+#define BMM050_INT_STAT_OVRFLOW__LEN        (1)
+#define BMM050_INT_STAT_OVRFLOW__MSK        (0x40)
+#define BMM050_INT_STAT_OVRFLOW__REG        (BMM050_INT_STAT_REG)
 
-#define BMM050_INT_STAT_HIGH_THZ__POS       5
-#define BMM050_INT_STAT_HIGH_THZ__LEN       1
-#define BMM050_INT_STAT_HIGH_THZ__MSK       0x20
-#define BMM050_INT_STAT_HIGH_THZ__REG       BMM050_INT_STAT
+#define BMM050_INT_STAT_HIGH_THZ__POS       (5)
+#define BMM050_INT_STAT_HIGH_THZ__LEN       (1)
+#define BMM050_INT_STAT_HIGH_THZ__MSK       (0x20)
+#define BMM050_INT_STAT_HIGH_THZ__REG       (BMM050_INT_STAT_REG)
 
-#define BMM050_INT_STAT_HIGH_THY__POS       4
-#define BMM050_INT_STAT_HIGH_THY__LEN       1
-#define BMM050_INT_STAT_HIGH_THY__MSK       0x10
-#define BMM050_INT_STAT_HIGH_THY__REG       BMM050_INT_STAT
+#define BMM050_INT_STAT_HIGH_THY__POS       (4)
+#define BMM050_INT_STAT_HIGH_THY__LEN       (1)
+#define BMM050_INT_STAT_HIGH_THY__MSK       (0x10)
+#define BMM050_INT_STAT_HIGH_THY__REG       (BMM050_INT_STAT_REG)
 
-#define BMM050_INT_STAT_HIGH_THX__POS       3
-#define BMM050_INT_STAT_HIGH_THX__LEN       1
-#define BMM050_INT_STAT_HIGH_THX__MSK       0x08
-#define BMM050_INT_STAT_HIGH_THX__REG       BMM050_INT_STAT
+#define BMM050_INT_STAT_HIGH_THX__POS       (3)
+#define BMM050_INT_STAT_HIGH_THX__LEN       (1)
+#define BMM050_INT_STAT_HIGH_THX__MSK       (0x08)
+#define BMM050_INT_STAT_HIGH_THX__REG       (BMM050_INT_STAT_REG)
 
-#define BMM050_INT_STAT_LOW_THZ__POS        2
-#define BMM050_INT_STAT_LOW_THZ__LEN        1
-#define BMM050_INT_STAT_LOW_THZ__MSK        0x04
-#define BMM050_INT_STAT_LOW_THZ__REG        BMM050_INT_STAT
+#define BMM050_INT_STAT_LOW_THZ__POS        (2)
+#define BMM050_INT_STAT_LOW_THZ__LEN        (1)
+#define BMM050_INT_STAT_LOW_THZ__MSK        (0x04)
+#define BMM050_INT_STAT_LOW_THZ__REG        (BMM050_INT_STAT_REG)
 
-#define BMM050_INT_STAT_LOW_THY__POS        1
-#define BMM050_INT_STAT_LOW_THY__LEN        1
-#define BMM050_INT_STAT_LOW_THY__MSK        0x02
-#define BMM050_INT_STAT_LOW_THY__REG        BMM050_INT_STAT
+#define BMM050_INT_STAT_LOW_THY__POS        (1)
+#define BMM050_INT_STAT_LOW_THY__LEN        (1)
+#define BMM050_INT_STAT_LOW_THY__MSK        (0x02)
+#define BMM050_INT_STAT_LOW_THY__REG        (BMM050_INT_STAT_REG)
 
-#define BMM050_INT_STAT_LOW_THX__POS        0
-#define BMM050_INT_STAT_LOW_THX__LEN        1
-#define BMM050_INT_STAT_LOW_THX__MSK        0x01
-#define BMM050_INT_STAT_LOW_THX__REG        BMM050_INT_STAT
+#define BMM050_INT_STAT_LOW_THX__POS        (0)
+#define BMM050_INT_STAT_LOW_THX__LEN        (1)
+#define BMM050_INT_STAT_LOW_THX__MSK        (0x01)
+#define BMM050_INT_STAT_LOW_THX__REG        (BMM050_INT_STAT_REG)
 /********************************************/
 /**\name BIT MASK, LENGTH AND POSITION OF SOFT RESET REGISTERS   */
 /********************************************/
 /* Power Control Register */
-#define BMM050_POWER_CONTROL_SOFT_RST_7__POS       7
-#define BMM050_POWER_CONTROL_SOFT_RST_7__LEN       1
-#define BMM050_POWER_CONTROL_SOFT_RST_7__MSK       0x80
-#define BMM050_POWER_CONTROL_SOFT_RST_7__REG       BMM050_POWER_CONTROL
+#define BMM050_POWER_CONTROL_SOFT_RST_7__POS       (7)
+#define BMM050_POWER_CONTROL_SOFT_RST_7__LEN       (1)
+#define BMM050_POWER_CONTROL_SOFT_RST_7__MSK       (0x80)
+#define BMM050_POWER_CONTROL_SOFT_RST_7__REG       (BMM050_POWER_CONTROL)
 
-#define BMM050_POWER_CONTROL_SPI3_ENABLE__POS     2
-#define BMM050_POWER_CONTROL_SPI3_ENABLE__LEN     1
-#define BMM050_POWER_CONTROL_SPI3_ENABLE__MSK     0x04
-#define BMM050_POWER_CONTROL_SPI3_ENABLE__REG     BMM050_POWER_CONTROL
+#define BMM050_POWER_CONTROL_SPI3_ENABLE__POS     (2)
+#define BMM050_POWER_CONTROL_SPI3_ENABLE__LEN     (1)
+#define BMM050_POWER_CONTROL_SPI3_ENABLE__MSK     (0x04)
+#define BMM050_POWER_CONTROL_SPI3_ENABLE__REG     (BMM050_POWER_CONTROL)
 
-#define BMM050_POWER_CONTROL_SOFT_RST_1__POS       1
-#define BMM050_POWER_CONTROL_SOFT_RST_1__LEN       1
-#define BMM050_POWER_CONTROL_SOFT_RST_1__MSK       0x02
-#define BMM050_POWER_CONTROL_SOFT_RST_1__REG       BMM050_POWER_CONTROL
+#define BMM050_POWER_CONTROL_SOFT_RST_1__POS       (1)
+#define BMM050_POWER_CONTROL_SOFT_RST_1__LEN       (1)
+#define BMM050_POWER_CONTROL_SOFT_RST_1__MSK       (0x02)
+#define BMM050_POWER_CONTROL_SOFT_RST_1__REG       (BMM050_POWER_CONTROL)
 /********************************************/
 /**\name BIT MASK, LENGTH AND POSITION OF POWER MODE REGISTERS   */
 /********************************************/
-#define BMM050_POWER_CONTROL_POWER_CONTROL_BIT__POS         0
-#define BMM050_POWER_CONTROL_POWER_CONTROL_BIT__LEN         1
-#define BMM050_POWER_CONTROL_POWER_CONTROL_BIT__MSK         0x01
-#define BMM050_POWER_CONTROL_POWER_CONTROL_BIT__REG         BMM050_POWER_CONTROL
+#define BMM050_POWER_CONTROL_POWER_CONTROL_BIT__POS         (0)
+#define BMM050_POWER_CONTROL_POWER_CONTROL_BIT__LEN         (1)
+#define BMM050_POWER_CONTROL_POWER_CONTROL_BIT__MSK         (0x01)
+#define BMM050_POWER_CONTROL_POWER_CONTROL_BIT__REG         \
+(BMM050_POWER_CONTROL)
 /********************************************/
 /**\name BIT MASK, LENGTH AND POSITION OF SELF TEST REGISTERS   */
 /********************************************/
 /* Control Register */
-#define BMM050_CONTROL_ADVANCED_SELFTEST__POS            6
-#define BMM050_CONTROL_ADVANCED_SELFTEST__LEN            2
-#define BMM050_CONTROL_ADVANCED_SELFTEST__MSK            0xC0
-#define BMM050_CONTROL_ADVANCED_SELFTEST__REG            BMM050_CONTROL
+#define BMM050_CONTROL_ADVANCED_SELFTEST__POS            (6)
+#define BMM050_CONTROL_ADVANCED_SELFTEST__LEN            (2)
+#define BMM050_CONTROL_ADVANCED_SELFTEST__MSK            (0xC0)
+#define BMM050_CONTROL_ADVANCED_SELFTEST__REG            (BMM050_CONTROL)
 /********************************************/
 /**\name BIT MASK, LENGTH AND POSITION OF DATA RATE REGISTERS   */
 /********************************************/
-#define BMM050_CONTROL_DATA_RATE__POS                3
-#define BMM050_CONTROL_DATA_RATE__LEN                3
-#define BMM050_CONTROL_DATA_RATE__MSK                0x38
-#define BMM050_CONTROL_DATA_RATE__REG                BMM050_CONTROL
+#define BMM050_CONTROL_DATA_RATE__POS                (3)
+#define BMM050_CONTROL_DATA_RATE__LEN                (3)
+#define BMM050_CONTROL_DATA_RATE__MSK                (0x38)
+#define BMM050_CONTROL_DATA_RATE__REG                (BMM050_CONTROL)
 /********************************************/
 /**\name BIT MASK, LENGTH AND POSITION OF OPERATION MODE REGISTERS   */
 /********************************************/
-#define BMM050_CONTROL_OPERATION_MODE__POS            1
-#define BMM050_CONTROL_OPERATION_MODE__LEN            2
-#define BMM050_CONTROL_OPERATION_MODE__MSK            0x06
-#define BMM050_CONTROL_OPERATION_MODE__REG            BMM050_CONTROL
+#define BMM050_CONTROL_OPERATION_MODE__POS            (1)
+#define BMM050_CONTROL_OPERATION_MODE__LEN            (2)
+#define BMM050_CONTROL_OPERATION_MODE__MSK            (0x06)
+#define BMM050_CONTROL_OPERATION_MODE__REG            (BMM050_CONTROL)
 /********************************************/
 /**\name BIT MASK, LENGTH AND POSITION OF SELF TEST REGISTERS   */
 /********************************************/
-#define BMM050_CONTROL_SELFTEST__POS            0
-#define BMM050_CONTROL_SELFTEST__LEN            1
-#define BMM050_CONTROL_SELFTEST__MSK            0x01
-#define BMM050_CONTROL_SELFTEST__REG            BMM050_CONTROL
+#define BMM050_CONTROL_SELFTEST__POS            (0)
+#define BMM050_CONTROL_SELFTEST__LEN            (1)
+#define BMM050_CONTROL_SELFTEST__MSK            (0x01)
+#define BMM050_CONTROL_SELFTEST__REG            (BMM050_CONTROL)
 /********************************************/
 /**\name BIT MASK, LENGTH AND POSITION OF INTERRUPT CONTROL REGISTERS   */
 /********************************************/
 /* Interrupt Control Register */
-#define BMM050_INT_CONTROL_DOR_EN__POS            7
-#define BMM050_INT_CONTROL_DOR_EN__LEN            1
-#define BMM050_INT_CONTROL_DOR_EN__MSK            0x80
-#define BMM050_INT_CONTROL_DOR_EN__REG            BMM050_INT_CONTROL
+#define BMM050_INT_CONTROL_DOR_EN__POS            (7)
+#define BMM050_INT_CONTROL_DOR_EN__LEN            (1)
+#define BMM050_INT_CONTROL_DOR_EN__MSK            (0x80)
+#define BMM050_INT_CONTROL_DOR_EN__REG            (BMM050_INT_CONTROL)
 
-#define BMM050_INT_CONTROL_OVRFLOW_EN__POS        6
-#define BMM050_INT_CONTROL_OVRFLOW_EN__LEN        1
-#define BMM050_INT_CONTROL_OVRFLOW_EN__MSK        0x40
-#define BMM050_INT_CONTROL_OVRFLOW_EN__REG        BMM050_INT_CONTROL
+#define BMM050_INT_CONTROL_OVRFLOW_EN__POS        (6)
+#define BMM050_INT_CONTROL_OVRFLOW_EN__LEN        (1)
+#define BMM050_INT_CONTROL_OVRFLOW_EN__MSK        (0x40)
+#define BMM050_INT_CONTROL_OVRFLOW_EN__REG        (BMM050_INT_CONTROL)
 
-#define BMM050_INT_CONTROL_HIGH_THZ_EN__POS       5
-#define BMM050_INT_CONTROL_HIGH_THZ_EN__LEN       1
-#define BMM050_INT_CONTROL_HIGH_THZ_EN__MSK       0x20
-#define BMM050_INT_CONTROL_HIGH_THZ_EN__REG       BMM050_INT_CONTROL
+#define BMM050_INT_CONTROL_HIGH_THZ_EN__POS       (5)
+#define BMM050_INT_CONTROL_HIGH_THZ_EN__LEN       (1)
+#define BMM050_INT_CONTROL_HIGH_THZ_EN__MSK       (0x20)
+#define BMM050_INT_CONTROL_HIGH_THZ_EN__REG       (BMM050_INT_CONTROL)
 
-#define BMM050_INT_CONTROL_HIGH_THY_EN__POS       4
-#define BMM050_INT_CONTROL_HIGH_THY_EN__LEN       1
-#define BMM050_INT_CONTROL_HIGH_THY_EN__MSK       0x10
-#define BMM050_INT_CONTROL_HIGH_THY_EN__REG       BMM050_INT_CONTROL
+#define BMM050_INT_CONTROL_HIGH_THY_EN__POS       (4)
+#define BMM050_INT_CONTROL_HIGH_THY_EN__LEN       (1)
+#define BMM050_INT_CONTROL_HIGH_THY_EN__MSK       (0x10)
+#define BMM050_INT_CONTROL_HIGH_THY_EN__REG       (BMM050_INT_CONTROL)
 
-#define BMM050_INT_CONTROL_HIGH_THX_EN__POS       3
-#define BMM050_INT_CONTROL_HIGH_THX_EN__LEN       1
-#define BMM050_INT_CONTROL_HIGH_THX_EN__MSK       0x08
-#define BMM050_INT_CONTROL_HIGH_THX_EN__REG       BMM050_INT_CONTROL
+#define BMM050_INT_CONTROL_HIGH_THX_EN__POS       (3)
+#define BMM050_INT_CONTROL_HIGH_THX_EN__LEN       (1)
+#define BMM050_INT_CONTROL_HIGH_THX_EN__MSK       (0x08)
+#define BMM050_INT_CONTROL_HIGH_THX_EN__REG       (BMM050_INT_CONTROL)
 
-#define BMM050_INT_CONTROL_LOW_THZ_EN__POS        2
-#define BMM050_INT_CONTROL_LOW_THZ_EN__LEN        1
-#define BMM050_INT_CONTROL_LOW_THZ_EN__MSK        0x04
-#define BMM050_INT_CONTROL_LOW_THZ_EN__REG        BMM050_INT_CONTROL
+#define BMM050_INT_CONTROL_LOW_THZ_EN__POS        (2)
+#define BMM050_INT_CONTROL_LOW_THZ_EN__LEN        (1)
+#define BMM050_INT_CONTROL_LOW_THZ_EN__MSK        (0x04)
+#define BMM050_INT_CONTROL_LOW_THZ_EN__REG        (BMM050_INT_CONTROL)
 
-#define BMM050_INT_CONTROL_LOW_THY_EN__POS        1
-#define BMM050_INT_CONTROL_LOW_THY_EN__LEN        1
-#define BMM050_INT_CONTROL_LOW_THY_EN__MSK        0x02
-#define BMM050_INT_CONTROL_LOW_THY_EN__REG        BMM050_INT_CONTROL
+#define BMM050_INT_CONTROL_LOW_THY_EN__POS        (1)
+#define BMM050_INT_CONTROL_LOW_THY_EN__LEN        (1)
+#define BMM050_INT_CONTROL_LOW_THY_EN__MSK        (0x02)
+#define BMM050_INT_CONTROL_LOW_THY_EN__REG        (BMM050_INT_CONTROL)
 
-#define BMM050_INT_CONTROL_LOW_THX_EN__POS        0
-#define BMM050_INT_CONTROL_LOW_THX_EN__LEN        1
-#define BMM050_INT_CONTROL_LOW_THX_EN__MSK        0x01
-#define BMM050_INT_CONTROL_LOW_THX_EN__REG        BMM050_INT_CONTROL
+#define BMM050_INT_CONTROL_LOW_THX_EN__POS        (0)
+#define BMM050_INT_CONTROL_LOW_THX_EN__LEN        (1)
+#define BMM050_INT_CONTROL_LOW_THX_EN__MSK        (0x01)
+#define BMM050_INT_CONTROL_LOW_THX_EN__REG        (BMM050_INT_CONTROL)
 
 /* Sensor Control Register */
-#define BMM050_SENS_CONTROL_DRDY_EN__POS          7
-#define BMM050_SENS_CONTROL_DRDY_EN__LEN          1
-#define BMM050_SENS_CONTROL_DRDY_EN__MSK          0x80
-#define BMM050_SENS_CONTROL_DRDY_EN__REG          BMM050_SENS_CONTROL
+#define BMM050_SENS_CONTROL_DRDY_EN__POS          (7)
+#define BMM050_SENS_CONTROL_DRDY_EN__LEN          (1)
+#define BMM050_SENS_CONTROL_DRDY_EN__MSK          (0x80)
+#define BMM050_SENS_CONTROL_DRDY_EN__REG          (BMM050_SENS_CONTROL)
 
-#define BMM050_SENS_CONTROL_IE__POS               6
-#define BMM050_SENS_CONTROL_IE__LEN               1
-#define BMM050_SENS_CONTROL_IE__MSK               0x40
+#define BMM050_SENS_CONTROL_IE__POS               (6)
+#define BMM050_SENS_CONTROL_IE__LEN               (1)
+#define BMM050_SENS_CONTROL_IE__MSK               (0x40)
 #define BMM050_SENS_CONTROL_IE__REG               BMM050_SENS_CONTROL
 
-#define BMM050_SENS_CONTROL_CHANNELZ__POS         5
-#define BMM050_SENS_CONTROL_CHANNELZ__LEN         1
-#define BMM050_SENS_CONTROL_CHANNELZ__MSK         0x20
-#define BMM050_SENS_CONTROL_CHANNELZ__REG         BMM050_SENS_CONTROL
+#define BMM050_SENS_CONTROL_CHANNELZ__POS         (5)
+#define BMM050_SENS_CONTROL_CHANNELZ__LEN         (1)
+#define BMM050_SENS_CONTROL_CHANNELZ__MSK         (0x20)
+#define BMM050_SENS_CONTROL_CHANNELZ__REG         (BMM050_SENS_CONTROL)
 
-#define BMM050_SENS_CONTROL_CHANNELY__POS         4
-#define BMM050_SENS_CONTROL_CHANNELY__LEN         1
-#define BMM050_SENS_CONTROL_CHANNELY__MSK         0x10
-#define BMM050_SENS_CONTROL_CHANNELY__REG         BMM050_SENS_CONTROL
+#define BMM050_SENS_CONTROL_CHANNELY__POS         (4)
+#define BMM050_SENS_CONTROL_CHANNELY__LEN         (1)
+#define BMM050_SENS_CONTROL_CHANNELY__MSK         (0x10)
+#define BMM050_SENS_CONTROL_CHANNELY__REG         (BMM050_SENS_CONTROL)
 
-#define BMM050_SENS_CONTROL_CHANNELX__POS         3
-#define BMM050_SENS_CONTROL_CHANNELX__LEN         1
-#define BMM050_SENS_CONTROL_CHANNELX__MSK         0x08
-#define BMM050_SENS_CONTROL_CHANNELX__REG         BMM050_SENS_CONTROL
+#define BMM050_SENS_CONTROL_CHANNELX__POS         (3)
+#define BMM050_SENS_CONTROL_CHANNELX__LEN         (1)
+#define BMM050_SENS_CONTROL_CHANNELX__MSK         (0x08)
+#define BMM050_SENS_CONTROL_CHANNELX__REG         (BMM050_SENS_CONTROL)
 
-#define BMM050_SENS_CONTROL_DR_POLARITY__POS      2
-#define BMM050_SENS_CONTROL_DR_POLARITY__LEN      1
-#define BMM050_SENS_CONTROL_DR_POLARITY__MSK      0x04
-#define BMM050_SENS_CONTROL_DR_POLARITY__REG      BMM050_SENS_CONTROL
+#define BMM050_SENS_CONTROL_DR_POLARITY__POS      (2)
+#define BMM050_SENS_CONTROL_DR_POLARITY__LEN      (1)
+#define BMM050_SENS_CONTROL_DR_POLARITY__MSK      (0x04)
+#define BMM050_SENS_CONTROL_DR_POLARITY__REG      (BMM050_SENS_CONTROL)
 
-#define BMM050_SENS_CONTROL_INTERRUPT_LATCH__POS            1
-#define BMM050_SENS_CONTROL_INTERRUPT_LATCH__LEN            1
-#define BMM050_SENS_CONTROL_INTERRUPT_LATCH__MSK            0x02
-#define BMM050_SENS_CONTROL_INTERRUPT_LATCH__REG            BMM050_SENS_CONTROL
+#define BMM050_SENS_CONTROL_INTERRUPT_LATCH__POS    (1)
+#define BMM050_SENS_CONTROL_INTERRUPT_LATCH__LEN    (1)
+#define BMM050_SENS_CONTROL_INTERRUPT_LATCH__MSK    (0x02)
+#define BMM050_SENS_CONTROL_INTERRUPT_LATCH__REG    (BMM050_SENS_CONTROL)
 
-#define BMM050_SENS_CONTROL_INTERRUPT_POLARITY__POS         0
-#define BMM050_SENS_CONTROL_INTERRUPT_POLARITY__LEN         1
-#define BMM050_SENS_CONTROL_INTERRUPT_POLARITY__MSK         0x01
-#define BMM050_SENS_CONTROL_INTERRUPT_POLARITY__REG         BMM050_SENS_CONTROL
+#define BMM050_SENS_CONTROL_INTERRUPT_POLARITY__POS         (0)
+#define BMM050_SENS_CONTROL_INTERRUPT_POLARITY__LEN         (1)
+#define BMM050_SENS_CONTROL_INTERRUPT_POLARITY__MSK         (0x01)
+#define BMM050_SENS_CONTROL_INTERRUPT_POLARITY__REG         \
+(BMM050_SENS_CONTROL)
 /********************************************/
 /**\name BIT MASK, LENGTH AND POSITION OF TRIM REGISTER   */
 /********************************************/
 /* Register 6D */
-#define BMM050_DIG_XYZ1_MSB__POS         0
-#define BMM050_DIG_XYZ1_MSB__LEN         7
-#define BMM050_DIG_XYZ1_MSB__MSK         0x7F
-#define BMM050_DIG_XYZ1_MSB__REG         BMM050_DIG_XYZ1_MSB
+#define BMM050_DIG_XYZ1_MSB__POS         (0)
+#define BMM050_DIG_XYZ1_MSB__LEN         (7)
+#define BMM050_DIG_XYZ1_MSB__MSK         (0x7F)
+#define BMM050_DIG_XYZ1_MSB__REG         (BMM050_DIG_XYZ1_MSB)
 /*****************************************************************/
 /********************************************/
 /**\name CONSTANTS DEFINITIONS  */
@@ -705,76 +709,71 @@ BMM050_BMX055_REMAPPED_DATAY_LSB
 #define ERROR						((s8)-1)
 #define E_BMM050_OUT_OF_RANGE       ((s8)-2)
 #define BMM050_NULL                 ((u8)0)
-#define E_BMM050_UNDEFINED_MODE        0
+#define E_BMM050_UNDEFINED_MODE     (0)
 
 /********************************************/
 /**\name RESET DEFINITIONS */
 /********************************************/
 /*General Info data's*/
-#define BMM050_SOFT_RESET7_ON              1
-#define BMM050_SOFT_RESET1_ON              1
-#define BMM050_SOFT_RESET7_OFF             0
-#define BMM050_SOFT_RESET1_OFF             0
-#define BMM050_DELAY_SOFTRESET             1
+#define BMM050_SOFT_RESET7_ON              (1)
+#define BMM050_SOFT_RESET1_ON              (1)
+#define BMM050_SOFT_RESET7_OFF             (0)
+#define BMM050_SOFT_RESET1_OFF             (0)
+#define BMM050_DELAY_SOFTRESET             (1)
 
 /********************************************/
 /**\name DELAY DEFINITIONS  */
 /********************************************/
 /* Constants */
-#define BMM050_DELAY_POWEROFF_SUSPEND      1
-#define BMM050_DELAY_SUSPEND_SLEEP         2
-#define BMM050_DELAY_SLEEP_ACTIVE          1
-#define BMM050_DELAY_ACTIVE_SLEEP          1
-#define BMM050_DELAY_SLEEP_SUSPEND         1
-#define BMM050_DELAY_ACTIVE_SUSPEND        1
-#define BMM050_DELAY_SLEEP_POWEROFF        1
-#define BMM050_DELAY_ACTIVE_POWEROFF       1
-#define BMM050_DELAY_SETTLING_TIME         2
-#define BMM050_MDELAY_DATA_TYPE			u32
+#define BMM050_DELAY_POWEROFF_SUSPEND      (1)
+#define BMM050_DELAY_SUSPEND_SLEEP         (3)
+#define BMM050_DELAY_SLEEP_ACTIVE          (1)
+#define BMM050_DELAY_ACTIVE_SLEEP          (1)
+#define BMM050_DELAY_SLEEP_SUSPEND         (1)
+#define BMM050_DELAY_ACTIVE_SUSPEND        (1)
+#define BMM050_DELAY_SLEEP_POWEROFF        (1)
+#define BMM050_DELAY_ACTIVE_POWEROFF       (1)
+#define BMM050_DELAY_SETTLING_TIME         (3)
+#define BMM050_MDELAY_DATA_TYPE			  u32
 /********************************************/
 /**\name XYZ AXIS DEFINITIONS  */
 /********************************************/
-#define BMM050_X_AXIS               0
-#define BMM050_Y_AXIS               1
-#define BMM050_Z_AXIS               2
-#define BMM050_RESISTANCE           3
-#define BMM050_X                    1
-#define BMM050_Y                    2
-#define BMM050_Z                    4
-#define BMM050_XYZ                  7
+#define BMM050_X_AXIS               (0)
+#define BMM050_Y_AXIS               (1)
+#define BMM050_Z_AXIS               (2)
+#define BMM050_RESISTANCE           (3)
+#define BMM050_X                    (1)
+#define BMM050_Y                    (2)
+#define BMM050_Z                    (4)
+#define BMM050_XYZ                  (7)
 /********************************************/
 /**\name ENABLE/DISABLE DEFINITIONS  */
 /********************************************/
-#define BMM050_ZERO_U8X                         0
-#define BMM050_DISABLE                          0
-#define BMM050_ENABLE                           1
-#define BMM050_CHANNEL_DISABLE                  1
-#define BMM050_CHANNEL_ENABLE                   0
-#define BMM050_INTPIN_LATCH_ENABLE              1
-#define BMM050_INTPIN_LATCH_DISABLE             0
-#define BMM050_OFF                              0
-#define BMM050_ON                               1
+#define BMM050_CHANNEL_DISABLE                  (1)
+#define BMM050_CHANNEL_ENABLE                   (0)
+#define BMM050_OFF                              (0)
+#define BMM050_ON                               (1)
 /********************************************/
 /**\name POWER MODE DEFINITIONS  */
 /********************************************/
-#define BMM050_NORMAL_MODE                      0x00
-#define BMM050_FORCED_MODE                      0x01
-#define BMM050_SUSPEND_MODE                     0x02
-#define BMM050_SLEEP_MODE                       0x03
+#define BMM050_NORMAL_MODE                      (0x00)
+#define BMM050_FORCED_MODE                      (0x01)
+#define BMM050_SUSPEND_MODE                     (0x02)
+#define BMM050_SLEEP_MODE                       (0x03)
 /********************************************/
 /**\name SELF TEST DEFINITIONS  */
 /********************************************/
-#define BMM050_ADVANCED_SELFTEST_OFF            0
-#define BMM050_ADVANCED_SELFTEST_NEGATIVE       2
-#define BMM050_ADVANCED_SELFTEST_POSITIVE       3
+#define BMM050_ADVANCED_SELFTEST_OFF            (0)
+#define BMM050_ADVANCED_SELFTEST_NEGATIVE       (2)
+#define BMM050_ADVANCED_SELFTEST_POSITIVE       (3)
 
-#define BMM050_NEGATIVE_SATURATION_Z            -32767
-#define BMM050_POSITIVE_SATURATION_Z            32767
+#define BMM050_NEGATIVE_SATURATION_Z            (-32767)
+#define BMM050_POSITIVE_SATURATION_Z            (32767)
 /********************************************/
 /**\name SPI READ/WRITE DEFINITIONS  */
 /********************************************/
-#define BMM050_SPI_RD_MASK                      0x80
-#define BMM050_READ_SET                         0x01
+#define BMM050_SPI_RD_MASK                      (0x80)
+#define BMM050_READ_SET                         (0x01)
 /********************************************/
 /**\name READ AND WRITE FUNCTION POINTERS  */
 /********************************************/
@@ -790,16 +789,15 @@ BMM050_BMX055_REMAPPED_DATAY_LSB
 /********************************************/
 /**\name NUMERIC DEFINITIONS  */
 /********************************************/
-#define         C_BMM050_ZERO_U8X				((u8)0)
-#define         C_BMM050_ONE_U8X				((u8)1)
-#define         C_BMM050_TWO_U8X				((u8)2)
-#define         C_BMM050_FOUR_U8X				((u8)4)
-#define         C_BMM050_FIVE_U8X				((u8)5)
-#define         C_BMM050_EIGHT_U8X				((u8)8)
+#define  BMM050_GEN_READ_WRITE_DATA_LENGTH		((u8)1)
+#define  BMM050_TRIM_DATA_LENGTH		((u8)2)
+#define  BMM050_SELFTEST_DELAY			((u8)4)
+#define  BMM050_SELFTEST_DATA_LENGTH	((u8)5)
+#define  BMM050_ALL_DATA_FRAME_LENGTH	((u8)8)
+/**< Frame length refers the
+x,y,z and r values*/
+#define BMM050_INIT_VALUE               (0)
 
-#define BMM0505_HEX_ZERO_ZERO	0x00
-/* Conversion factors*/
-#define BMM050_CONVFACTOR_LSB_UT                6
 /********************************************/
 /**\name GET AND SET BITSLICE FUNCTIONS  */
 /********************************************/
@@ -823,133 +821,98 @@ BMM050_BMX055_REMAPPED_DATAY_LSB
 /********************************************/
 /**\name PRESET MODE DEFINITIONS  */
 /********************************************/
-#define BMM050_PRESETMODE_LOWPOWER                  1
-#define BMM050_PRESETMODE_REGULAR                   2
-#define BMM050_PRESETMODE_HIGHACCURACY              3
-#define BMM050_PRESETMODE_ENHANCED                  4
+#define BMM050_PRESETMODE_LOWPOWER                  (1)
+#define BMM050_PRESETMODE_REGULAR                   (2)
+#define BMM050_PRESETMODE_HIGHACCURACY              (3)
+#define BMM050_PRESETMODE_ENHANCED                  (4)
 
 /* PRESET MODES - DATA RATES */
-#define BMM050_LOWPOWER_DR                       BMM050_DR_10HZ
-#define BMM050_REGULAR_DR                        BMM050_DR_10HZ
-#define BMM050_HIGHACCURACY_DR                   BMM050_DR_20HZ
-#define BMM050_ENHANCED_DR                       BMM050_DR_10HZ
+#define BMM050_LOWPOWER_DR                       (BMM050_DR_10HZ)
+#define BMM050_REGULAR_DR                        (BMM050_DR_10HZ)
+#define BMM050_HIGHACCURACY_DR                   (BMM050_DR_20HZ)
+#define BMM050_ENHANCED_DR                       (BMM050_DR_10HZ)
 
 /* PRESET MODES - REPETITIONS-XY RATES */
-#define BMM050_LOWPOWER_REPXY                     1
-#define BMM050_REGULAR_REPXY                      4
-#define BMM050_HIGHACCURACY_REPXY                23
-#define BMM050_ENHANCED_REPXY                     7
+#define BMM050_LOWPOWER_REPXY                     (1)
+#define BMM050_REGULAR_REPXY                      (4)
+#define BMM050_HIGHACCURACY_REPXY                (23)
+#define BMM050_ENHANCED_REPXY                     (7)
 
 /* PRESET MODES - REPETITIONS-Z RATES */
-#define BMM050_LOWPOWER_REPZ                      2
-#define BMM050_REGULAR_REPZ                      14
-#define BMM050_HIGHACCURACY_REPZ                 82
-#define BMM050_ENHANCED_REPZ                     26
+#define BMM050_LOWPOWER_REPZ                      (2)
+#define BMM050_REGULAR_REPZ                      (14)
+#define BMM050_HIGHACCURACY_REPZ                 (82)
+#define BMM050_ENHANCED_REPZ                     (26)
 /********************************************/
 /**\name DATA RATE DEFINITIONS  */
 /********************************************/
 /* Data Rates */
-#define BMM050_DR_10HZ                     0
-#define BMM050_DR_02HZ                     1
-#define BMM050_DR_06HZ                     2
-#define BMM050_DR_08HZ                     3
-#define BMM050_DR_15HZ                     4
-#define BMM050_DR_20HZ                     5
-#define BMM050_DR_25HZ                     6
-#define BMM050_DR_30HZ                     7
+#define BMM050_DR_10HZ                     (0)
+#define BMM050_DR_02HZ                     (1)
+#define BMM050_DR_06HZ                     (2)
+#define BMM050_DR_08HZ                     (3)
+#define BMM050_DR_15HZ                     (4)
+#define BMM050_DR_20HZ                     (5)
+#define BMM050_DR_25HZ                     (6)
+#define BMM050_DR_30HZ                     (7)
 
-#define BMM050_DATA_RATE_10HZ        0x00
-#define BMM050_DATA_RATE_02HZ        0x01
-#define BMM050_DATA_RATE_06HZ        0x02
-#define BMM050_DATA_RATE_08HZ        0x03
-#define BMM050_DATA_RATE_15HZ        0x04
-#define BMM050_DATA_RATE_20HZ        0x05
-#define BMM050_DATA_RATE_25HZ        0x06
-#define BMM050_DATA_RATE_30HZ        0x07
-
-/****************************************************/
-/**\name	COMPENSATED FORMULA DEFINITIONS      */
-/***************************************************/
-#define BMM050_HEX_FOUR_THOUSAND			0x4000
-#define BMM050_HEX_ONE_LACK					0x100000
-#define BMM050_HEX_A_ZERO					0xA0
-
-#define	BMM050_FLOAT_ONE_SIX_THREE_EIGHT_FOUR		16384.0f
-#define	BMM050_FLOAT_2_6_8_4_3_5_4_5_6_DATA			268435456.0f
-#define	BMM050_FLOAT_1_6_3_8_4_DATA					16384.0f
-#define	BMM050_FLOAT_2_5_6_DATA						256.0f
-#define	BMM050_FLOAT_1_6_0_DATA						160.0f
-#define	BMM050_FLOAT_8_1_9_2_DATA					8192.0f
-#define	BMM050_FLOAT_EIGHT_DATA						8.0f
-#define	BMM050_FLOAT_SIXTEEN_DATA					16.0f
-#define	BMM050_FLOAT_1_3_1_0_7_2_DATA				131072.0f
-#define	BMM050_FLOAT_3_2_7_6_8_DATA					32768.0
-#define	BMM050_FLOAT_4_DATA                         4.0
+#define BMM050_DATA_RATE_10HZ        (0x00)
+#define BMM050_DATA_RATE_02HZ        (0x01)
+#define BMM050_DATA_RATE_06HZ        (0x02)
+#define BMM050_DATA_RATE_08HZ        (0x03)
+#define BMM050_DATA_RATE_15HZ        (0x04)
+#define BMM050_DATA_RATE_20HZ        (0x05)
+#define BMM050_DATA_RATE_25HZ        (0x06)
+#define BMM050_DATA_RATE_30HZ        (0x07)
 
 /********************************************/
 /**\name BIT SHIFTING DEFINITIONS  */
 /********************************************/
 /*Shifting Constants*/
-#define SHIFT_RIGHT_1_POSITION                  1
-#define SHIFT_RIGHT_2_POSITION                  2
-#define SHIFT_RIGHT_3_POSITION                  3
-#define SHIFT_RIGHT_4_POSITION                  4
-#define SHIFT_RIGHT_5_POSITION                  5
-#define SHIFT_RIGHT_6_POSITION                  6
-#define SHIFT_RIGHT_7_POSITION                  7
-#define SHIFT_RIGHT_8_POSITION                  8
-#define SHIFT_RIGHT_9_POSITION                  9
-#define SHIFT_RIGHT_12_POSITION                 12
-#define SHIFT_RIGHT_13_POSITION                 13
-#define SHIFT_RIGHT_16_POSITION                 16
-
-#define SHIFT_LEFT_1_POSITION                   1
-#define SHIFT_LEFT_2_POSITION                   2
-#define SHIFT_LEFT_3_POSITION                   3
-#define SHIFT_LEFT_4_POSITION                   4
-#define SHIFT_LEFT_5_POSITION                   5
-#define SHIFT_LEFT_6_POSITION                   6
-#define SHIFT_LEFT_7_POSITION                   7
-#define SHIFT_LEFT_8_POSITION                   8
-#define SHIFT_LEFT_14_POSITION                  14
-#define SHIFT_LEFT_15_POSITION                  15
-#define SHIFT_LEFT_16_POSITION                  16
+#define BMM050_SHIFT_BIT_POSITION_BY_01_BIT     (1)
+#define BMM050_SHIFT_BIT_POSITION_BY_02_BITS    (2)
+#define BMM050_SHIFT_BIT_POSITION_BY_03_BITS    (3)
+#define BMM050_SHIFT_BIT_POSITION_BY_05_BITS    (5)
+#define BMM050_SHIFT_BIT_POSITION_BY_06_BITS    (6)
+#define BMM050_SHIFT_BIT_POSITION_BY_07_BITS    (7)
+#define BMM050_SHIFT_BIT_POSITION_BY_08_BITS    (8)
+#define BMM050_SHIFT_BIT_POSITION_BY_09_BITS    (9)
+#define BMM050_SHIFT_BIT_POSITION_BY_12_BITS    (12)
+#define BMM050_SHIFT_BIT_POSITION_BY_13_BITS    (13)
+#define BMM050_SHIFT_BIT_POSITION_BY_16_BITS    (16)
+#define BMM050_SHIFT_BIT_POSITION_BY_14_BITS    (14)
+#define BMM050_SHIFT_BIT_POSITION_BY_15_BITS    (15)
 /****************************************************/
 /**\name	ARRAY SIZE DEFINITIONS      */
 /***************************************************/
-#define ARRAY_SIZE_TWO		2
-#define ARRAY_SIZE_THREE	3
-#define ARRAY_SIZE_SIX		6
-#define ARRAY_SIZE_FIVE		5
-#define ARRAY_SIZE_EIGHT	8
-#define ARRAY_SIZE_TWELVE	12
-#define ARRAY_SIZE_FOURTEEN	14
+#define	BMM050_DATA_FRAME_SIZE		(8)
+#define	BMM050_INIT_DATA_SIZE		(2)
+#define	BMM050_CHIP_ID_DATA			(0)
+#define	BMM050_SELFTEST_DATA_SIZE	(5)
+#define	BMM050_TRIM_DATA_SIZE		(2)
+#define	BMM050_XLSB_DATA			(0)
+#define	BMM050_XMSB_DATA			(1)
+#define	BMM050_YLSB_DATA			(2)
+#define	BMM050_YMSB_DATA			(3)
+#define	BMM050_ZLSB_DATA			(4)
+#define	BMM050_ZMSB_DATA			(5)
+#define	BMM050_RLSB_DATA			(6)
+#define	BMM050_RMSB_DATA			(7)
+#define	BMM050_TRIM_DIG_Z1_LSB_DATA	(0)
+#define	BMM050_TRIM_DIG_Z1_MSB_DATA	(1)
+#define	BMM050_TRIM_DIG_Z2_LSB_DATA	(0)
+#define	BMM050_TRIM_DIG_Z2_MSB_DATA	(1)
+#define	BMM050_TRIM_DIG_Z3_LSB_DATA	(0)
+#define	BMM050_TRIM_DIG_Z3_MSB_DATA	(1)
+#define	BMM050_TRIM_DIG_Z4_LSB_DATA	(0)
+#define	BMM050_TRIM_DIG_Z4_MSB_DATA	(1)
+#define	BMM050_TRIM_DIG_XYZ1_LSB_DATA	(0)
+#define	BMM050_TRIM_DIG_XYZ1_MSB_DATA	(1)
+#define	BMM050_REMAPPED_YLSB_DATA			(0)
+#define	BMM050_REMAPPED_YMSB_DATA			(1)
+#define	BMM050_REMAPPED_XLSB_DATA			(2)
+#define	BMM050_REMAPPED_XMSB_DATA			(3)
 
-#define INDEX_ZERO		0
-#define INDEX_ONE		1
-#define INDEX_TWO		2
-#define INDEX_THREE		3
-#define INDEX_FOUR		4
-#define INDEX_FIVE		5
-#define INDEX_SIX		6
-#define INDEX_SEVEN		7
-#define INDEX_EIGHT		8
-#define INDEX_NINE		9
-#define INDEX_TEN		10
-#define INDEX_ELEVEN	11
-#define INDEX_TWELVE	12
-#define INDEX_THIRTEEN	13
-/****************************************************/
-/**\name	ARRAY PARAMETERS      */
-/***************************************************/
-#define LSB_ZERO	0
-#define MSB_ONE		1
-#define LSB_TWO		2
-#define MSB_THREE	3
-#define LSB_FOUR	4
-#define MSB_FIVE	5
-#define LSB_SIX		6
-#define MSB_SEVEN	7
 /********************************************/
 /**\name STRUCTURE DEFINITIONS  */
 /********************************************/
@@ -962,6 +925,7 @@ struct bmm050_mag_data_s16_t {
 	s16 datay;/**<mag compensated Y  data*/
 	s16 dataz;/**<mag compensated Z  data*/
 	u16 resistance;/**<mag R  data*/
+	u8 data_ready;/**<mag data ready status*/
 };
 /*!
  * @brief Structure containing mag xyz data
@@ -972,6 +936,7 @@ struct bmm050_mag_s32_data_t {
 	s32 datay;/**<mag compensated Y  data*/
 	s32 dataz;/**<mag compensated Z  data*/
 	u16 resistance;/**<mag R  data*/
+	u8 data_ready;/**<mag data ready status*/
 };
 /*!
  * @brief Structure containing mag xyz data
@@ -982,6 +947,7 @@ struct bmm050_mag_data_float_t {
 	float datay;/**<mag compensated Y  data*/
 	float  dataz;/**<mag compensated Z  data*/
 	u16 resistance;/**<mag R  data*/
+	u8 data_ready;/**<mag data ready status*/
 };
 /*!
  * @brief Structure containing mag remapped xyz data
@@ -993,6 +959,7 @@ struct bmm050_remapped_mag_s16_data_t {
 	s16 datay;/**<mag compensated remapped Y  data*/
 	s16 dataz;/**<mag compensated Z  data*/
 	u16 resistance;/**<mag R  data*/
+	u8 data_ready;/**<mag data ready status*/
 };
 /*!
  * @brief Structure containing mag remapped xyz data
@@ -1004,6 +971,7 @@ struct bmm050_remapped_mag_s32_data_t {
 	s32 datay;/**<mag compensated remapped Y  data*/
 	s32 dataz;/**<mag compensated Z  data*/
 	u16 resistance;/**<mag R  data*/
+	u8 data_ready;/**<mag data ready status*/
 };
 /*!
  * @brief Structure containing mag remapped xyz data
@@ -1015,6 +983,7 @@ struct bmm050_remapped_mag_data_float_t {
 	float datay;/**<mag compensated remapped Y  data*/
 	float  dataz;/**<mag compensated Z  data*/
 	u16 resistance;/**<mag R  data*/
+	u8 data_ready;/**<mag data ready status*/
 };
 /*!
  * @brief Structure containing mag initial parameters
@@ -1025,7 +994,7 @@ struct bmm050 {
 
 	BMM050_WR_FUNC_PTR;/**< bus write function pointer*/
 	BMM050_RD_FUNC_PTR;/**< bus read function pointer*/
-	void(*delay_msec)(BMM050_MDELAY_DATA_TYPE);/**< delay function pointer*/
+	void (*delay_msec)(BMM050_MDELAY_DATA_TYPE);/**< delay function pointer*/
 
 	s8 dig_x1;/**< trim x1 data */
 	s8 dig_y1;/**< trim y1 data */
@@ -1369,6 +1338,12 @@ u8 v_functional_state_u8);
  *
  *
  *  @param v_functional_state_u8: The value of functional mode
+ *  value     |  functional state
+ * -----------|--------------------
+ *    0x00    |  Normal
+ *    0x03    |  Sleep
+ *	@note If user set the functional state as Force mode(0x01) and read the
+ *	register it returns the value as 0x03 that is sleep mode.
  *
  *	@return results of bus communication function
  *	@retval 0 -> Success
