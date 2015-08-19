@@ -23,7 +23,7 @@ INTRODUCTION
 VERSION
 =========
 	- Version of bmm050 sensor driver is:
-		* bmm050.c 		- V2.0.4
+		* bmm050.c 		- V2.0.5
 		* bmm050.h 		- V2.0.4
 		* bmm050_support.c 	- V1.0.5
 
