@@ -3,8 +3,8 @@
 * Copyright (C) 2011 - 2015 Bosch Sensortec GmbH
 *
 * bmm050.c
-* Date: 2015/05/21
-* Revision: 2.0.4 $
+* Date: 2015/08/19
+* Revision: 2.0.5 $
 *
 * Usage: Sensor Driver for  BMM050 and BMM150 sensor
 *
@@ -2123,9 +2123,8 @@ s16 bmm050_compensate_Z(s16 mag_data_z, u16 data_r)
 	   ) {
 		if ((p_bmm050->dig_z2 != BMM050_INIT_VALUE)
 		&& (p_bmm050->dig_z1 != BMM050_INIT_VALUE)
-		&& (p_bmm050->dig_z3 != BMM050_INIT_VALUE)
-		&& (data_r != BMM050_INIT_VALUE) &&
-		(p_bmm050->dig_xyz1 != BMM050_INIT_VALUE)) {
+		&& (data_r != BMM050_INIT_VALUE)
+		&& (p_bmm050->dig_xyz1 != BMM050_INIT_VALUE)) {
 			retval = (((((s32)(mag_data_z - p_bmm050->dig_z4))
 			<< BMM050_SHIFT_BIT_POSITION_BY_15_BITS) -
 			((((s32)p_bmm050->dig_z3) * ((s32)(((s16)data_r) -
@@ -2172,9 +2171,8 @@ s32 bmm050_compensate_Z_s32(s16 mag_data_z, u16 data_r)
 	if (mag_data_z != BMM050_HALL_OVERFLOW_ADCVAL) {
 		if ((p_bmm050->dig_z2 != BMM050_INIT_VALUE)
 		&& (p_bmm050->dig_z1 != BMM050_INIT_VALUE)
-		&& (p_bmm050->dig_z3 != BMM050_INIT_VALUE)
-		&& (data_r != BMM050_INIT_VALUE) &&
-		(p_bmm050->dig_xyz1 != BMM050_INIT_VALUE)) {
+		&& (data_r != BMM050_INIT_VALUE)
+		&& (p_bmm050->dig_xyz1 != BMM050_INIT_VALUE)) {
 			retval = (((((s32)(mag_data_z
 			- p_bmm050->dig_z4))
 			<< BMM050_SHIFT_BIT_POSITION_BY_15_BITS) -
@@ -2217,7 +2215,6 @@ float bmm050_compensate_Z_float (s16 mag_data_z, u16 data_r)
 	if (mag_data_z != BMM050_HALL_OVERFLOW_ADCVAL) {
 		if ((p_bmm050->dig_z2 != BMM050_INIT_VALUE)
 		&& (p_bmm050->dig_z1 != BMM050_INIT_VALUE)
-		&& (p_bmm050->dig_z3 != BMM050_INIT_VALUE)
 		&& (p_bmm050->dig_xyz1 != BMM050_INIT_VALUE)
 		&& (data_r != BMM050_INIT_VALUE)) {
 			inter_retval = ((((((float)mag_data_z)-
