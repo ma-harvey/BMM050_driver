@@ -1,10 +1,10 @@
 /*
 ****************************************************************************
-* Copyright (C) 2014 - 2015 Bosch Sensortec GmbH
+* Copyright (C) 2015 - 2016 Bosch Sensortec GmbH
 *
 * bmm050_support.c
-* Date: 2015/05/21
-* Revision: 1.0.5 $
+* Date: 2016/03/17
+* Revision: 1.0.6 $
 *
 * Usage: Sensor Driver support file for  BMM050 and BMM150 sensor
 *
@@ -49,6 +49,7 @@
 * No license is granted by implication or otherwise under any patent or
 * patent rights of the copyright holder.
 **************************************************************************/
+
 /*---------------------------------------------------------------------------*/
 /* Includes*/
 /*---------------------------------------------------------------------------*/
@@ -62,15 +63,18 @@
 /*	\Brief: The function is used as I2C bus read
  *	\Return : Status of the I2C read
  *	\param dev_addr : The device address of the sensor
- *	\param reg_addr : Address of the first register, will data is going to be read
- *	\param reg_data : This data read from the sensor, which is hold in an array
+ *	\param reg_addr : Address of the first register,
+ *        will data is going to be read
+ *	\param reg_data : This data read from the sensor,
+ *        which is hold in an array
  *	\param cnt : The no of byte of data to be read
  */
 s8 BMM050_I2C_bus_read(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt);
  /*	\Brief: The function is used as I2C bus write
  *	\Return : Status of the I2C write
  *	\param dev_addr : The device address of the sensor
- *	\param reg_addr : Address of the first register, will data is going to be written
+ *	\param reg_addr : Address of the first register,
+ *              will data is going to be written
  *	\param reg_data : It is a value hold in the array,
  *		will be used for write the value into the register
  *	\param cnt : The no of byte of data to be write
@@ -79,7 +83,8 @@ s8 BMM050_I2C_bus_write(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt);
 /*	\Brief: The function is used as SPI bus write
  *	\Return : Status of the SPI write
  *	\param dev_addr : The device address of the sensor
- *	\param reg_addr : Address of the first register, will data is going to be written
+ *	\param reg_addr : Address of the first register,
+ *              will data is going to be written
  *	\param reg_data : It is a value hold in the array,
  *		will be used for write the value into the register
  *	\param cnt : The no of byte of data to be write
@@ -88,8 +93,10 @@ s8 BMM050_SPI_bus_write(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt);
 /*	\Brief: The function is used as SPI bus read
  *	\Return : Status of the SPI read
  *	\param dev_addr : The device address of the sensor
- *	\param reg_addr : Address of the first register, will data is going to be read
- *	\param reg_data : This data read from the sensor, which is hold in an array
+ *	\param reg_addr : Address of the first register,
+ *             will data is going to be read
+ *	\param reg_data : This data read from the sensor,
+ *             which is hold in an array
  *	\param cnt : The no of byte of data to be read
  */
 s8 BMM050_SPI_bus_read(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt);
@@ -99,7 +106,7 @@ s8 BMM050_SPI_bus_read(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt);
 s8 I2C_routine(void);
 s8 SPI_routine(void);
 #endif
-/********************End of I2C/SPI function declarations***********************/
+/********************End of I2C/SPI function declarations*********************/
 /*	Brief : The delay routine
  *	\param : delay in ms
 */
@@ -110,8 +117,8 @@ void BMM050_delay_msek(u32 msek);
  */
 s32 bmm050_data_readout_template(void);
 /*----------------------------------------------------------------------------*
- *  struct bmm050 parameters can be accessed by using bmm050_t
- *	bmm050 having the following parameters
+ *	struct bmm050_t parameters can be accessed by using bmm050
+ *	bmm050_t having the following parameters
  *	Bus write function pointer: BMM050_WR_FUNC_PTR
  *	Bus read function pointer: BMM050_RD_FUNC_PTR
  *	Burst read function pointer: BMM050_BRD_FUNC_PTR
@@ -119,7 +126,7 @@ s32 bmm050_data_readout_template(void);
  *	I2C address: dev_addr
  *	Chip id of the sensor: chip_id
  *---------------------------------------------------------------------------*/
-struct bmm050 bmm050_t;
+struct bmm050_t bmm050;
 /*---------------------------------------------------------------------------*/
 /* This function is an example for reading sensor data
  *	\param: None
@@ -157,7 +164,7 @@ s32 bmm050_data_readout_template(void)
  *	Bus read
  *	company_id
 *-------------------------------------------------------------------------*/
-	com_rslt = bmm050_init(&bmm050_t);
+	com_rslt = bmm050_init(&bmm050);
 
 /*	For initialization it is required to set the mode of
  *	the sensor as "NORMAL"
@@ -190,14 +197,17 @@ s32 bmm050_data_readout_template(void)
 ************************* START READ SENSOR DATA(X,Y and Z axis) ********
 *------------------------------------------------------------------*/
 	/* accessing the bmm050_mdata parameter by using data*/
-	com_rslt += bmm050_read_mag_data_XYZ(&data);/* Reads the mag x y z data*/
+	/* Reads the mag x y z data*/
+	com_rslt += bmm050_read_mag_data_XYZ(&data);
 
 
 	/* accessing the bmm050_mdata_float parameter by using data_float*/
-	com_rslt += bmm050_read_mag_data_XYZ_float(&data_float);/* Reads mag xyz data output as 32bit value*/
+	/* Reads mag xyz data output as 32bit value*/
+	com_rslt += bmm050_read_mag_data_XYZ_float(&data_float);
 
 	/* accessing the bmm050_mdata_s32 parameter by using data_s32*/
-	com_rslt += bmm050_read_mag_data_XYZ_s32(&data_s32);/* Reads mag xyz data output as float value*/
+	/* Reads mag xyz data output as float value*/
+	com_rslt += bmm050_read_mag_data_XYZ_s32(&data_s32);
 
 /*--------------------------------------------------------------------*
 ************************* END READ SENSOR DATA(X,Y and Z axis) ************
@@ -207,7 +217,8 @@ s32 bmm050_data_readout_template(void)
 *-------------------------------------------------------------------------*/
 /*	For de-initialization it is required to set the mode of
  *	the sensor as "SUSPEND"
- *	the SUSPEND mode set from the register 0x4B bit BMM050_INIT_VALUE should be disabled
+ *	the SUSPEND mode set from the register 0x4B bit BMM050_INIT_VALUE
+ *             should be disabled
  *	by using the below API able to set the power mode as SUSPEND*/
 	/* Set the power mode as SUSPEND*/
 	com_rslt += bmm050_set_functional_state(BMM050_SUSPEND_MODE);
@@ -220,39 +231,41 @@ return com_rslt;
 #ifdef BMM050_API
 /*--------------------------------------------------------------------------*/
 /*	The following function is used to map the I2C bus read, write, delay and
- *	device address with global structure bmm050_t
+ *	device address with global structure bmm050
  *-------------------------------------------------------------------------*/
-s8 I2C_routine(void) {
+s8 I2C_routine(void)
+{
 /*--------------------------------------------------------------------------*/
-/*  By using bmm050_t the following structure parameter can be accessed
+/*	By using bmm050 the following structure parameter can be accessed
  *	Bus write function pointer: BMM050_WR_FUNC_PTR
  *	Bus read function pointer: BMM050_RD_FUNC_PTR
  *	Delay function pointer: delay_msec
  *	I2C address: dev_addr
  *--------------------------------------------------------------------------*/
-	bmm050_t.bus_write = BMM050_I2C_bus_write;
-	bmm050_t.bus_read = BMM050_I2C_bus_read;
-	bmm050_t.delay_msec = BMM050_delay_msek;
-	bmm050_t.dev_addr = BMM050_I2C_ADDRESS;
+	bmm050.bus_write = BMM050_I2C_bus_write;
+	bmm050.bus_read = BMM050_I2C_bus_read;
+	bmm050.delay_msec = BMM050_delay_msek;
+	bmm050.dev_addr = BMM050_I2C_ADDRESS;
 
 	return BMM050_INIT_VALUE;
 }
 
 /*---------------------------------------------------------------------------*/
 /*	The following function is used to map the SPI bus read, write and delay
- *	with global structure bmm050_t
+ *	with global structure bmm050
  *--------------------------------------------------------------------------*/
-s8 SPI_routine(void) {
+s8 SPI_routine(void)
+{
 /*--------------------------------------------------------------------------*
- *  By using bmm050_t the following structure parameter can be accessed
+ *  By using bmm050 the following structure parameter can be accessed
  *	Bus write function pointer: BMM050_WR_FUNC_PTR
  *	Bus read function pointer: BMM050_RD_FUNC_PTR
  *	Delay function pointer: delay_msec
  *--------------------------------------------------------------------------*/
 
-	bmm050_t.bus_write = BMM050_SPI_bus_write;
-	bmm050_t.bus_read = BMM050_SPI_bus_read;
-	bmm050_t.delay_msec = BMM050_delay_msek;
+	bmm050.bus_write = BMM050_SPI_bus_write;
+	bmm050.bus_read = BMM050_SPI_bus_read;
+	bmm050.delay_msec = BMM050_delay_msek;
 
 	return BMM050_INIT_VALUE;
 }
@@ -276,7 +289,8 @@ s8 SPI_routine(void) {
  /*	\Brief: The function is used as I2C bus write
  *	\Return : Status of the I2C write
  *	\param dev_addr : The device address of the sensor
- *	\param reg_addr : Address of the first register, will data is going to be written
+ *	\param reg_addr : Address of the first register,
+ *              will data is going to be written
  *	\param reg_data : It is a value hold in the array,
  *		will be used for write the value into the register
  *	\param cnt : The no of byte of data to be write
@@ -286,10 +300,10 @@ s8 BMM050_I2C_bus_write(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
 	s32 iError = BMM050_INIT_VALUE;
 	u8 array[I2C_BUFFER_LEN];
 	u8 stringpos = BMM050_INIT_VALUE;
+
 	array[BMM050_INIT_VALUE] = reg_addr;
-	for (stringpos = BMM050_INIT_VALUE; stringpos < cnt; stringpos++) {
+	for (stringpos = BMM050_INIT_VALUE; stringpos < cnt; stringpos++)
 		array[stringpos + C_BMM050_ONE_U8X] = *(reg_data + stringpos);
-	}
 	/*
 	* Please take the below function as your reference for
 	* write the data using I2C communication
@@ -302,7 +316,8 @@ s8 BMM050_I2C_bus_write(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
 	* Note :
 	* This is a full duplex operation,
 	* The first read data is discarded, for that extra write operation
-	* have to be initiated. For that cnt+C_BMM050_ONE_U8X operation done in the I2C write string function
+	* have to be initiated. For that cnt+C_BMM050_ONE_U8X operation done
+	* in the I2C write string function
 	* For more information please refer data sheet SPI communication:
 	*/
 	return (s8)iError;
@@ -311,8 +326,10 @@ s8 BMM050_I2C_bus_write(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
  /*	\Brief: The function is used as I2C bus read
  *	\Return : Status of the I2C read
  *	\param dev_addr : The device address of the sensor
- *	\param reg_addr : Address of the first register, will data is going to be read
- *	\param reg_data : This data read from the sensor, which is hold in an array
+ *	\param reg_addr : Address of the first register,
+ *            will data is going to be read
+ *	\param reg_data : This data read from the sensor,
+ *            which is hold in an array
  *	\param cnt : The no of byte of data to be read
  */
 s8 BMM050_I2C_bus_read(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
@@ -320,38 +337,43 @@ s8 BMM050_I2C_bus_read(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
 	s32 iError = BMM050_INIT_VALUE;
 	u8 array[I2C_BUFFER_LEN] = {BMM050_INIT_VALUE};
 	u8 stringpos = BMM050_INIT_VALUE;
+
 	array[BMM050_INIT_VALUE] = reg_addr;
 	/* Please take the below function as your reference
 	 * for read the data using I2C communication
 	 * add your I2C rad function here.
-	 * "IERROR = I2C_WRITE_READ_STRING(DEV_ADDR, ARRAY, ARRAY, C_BMM050_ONE_U8X, CNT)"
+	 * "IERROR = I2C_WRITE_READ_STRING(
+	 *  DEV_ADDR, ARRAY, ARRAY, C_BMM050_ONE_U8X, CNT)"
 	 * iError is an return value of SPI write function
 	 * Please select your valid return value
 	 * In the driver SUCCESS defined as BMM050_INIT_VALUE
      * and FAILURE defined as -C_BMM050_ONE_U8X
 	 */
-	for (stringpos = BMM050_INIT_VALUE; stringpos < cnt; stringpos++) {
+	for (stringpos = BMM050_INIT_VALUE; stringpos < cnt; stringpos++)
 		*(reg_data + stringpos) = array[stringpos];
-	}
+
 	return (s8)iError;
 }
 
 /*	\Brief: The function is used as SPI bus read
  *	\Return : Status of the SPI read
  *	\param dev_addr : The device address of the sensor
- *	\param reg_addr : Address of the first register, will data is going to be read
- *	\param reg_data : This data read from the sensor, which is hold in an array
+ *	\param reg_addr : Address of the first register,
+ *		will data is going to be read
+ *	\param reg_data : This data read from the sensor,
+ *              which is hold in an array
  *	\param cnt : The no of byte of data to be read
  */
 s8 BMM050_SPI_bus_read(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
 {
-	s32 iError=BMM050_INIT_VALUE;
-	u8 array[SPI_BUFFER_LEN]={MASK_DATA1};
+	s32 iError = BMM050_INIT_VALUE;
+	u8 array[SPI_BUFFER_LEN] = {MASK_DATA1};
 	u8 stringpos;
 	/*	For the SPI mode only 7 bits of register addresses are used.
 	The MSB of register address is declared the bit what functionality it is
 	read/write (read as C_BMM050_ONE_U8X/write as BMM050_INIT_VALUE)*/
-	array[BMM050_INIT_VALUE] = reg_addr|MASK_DATA2;/*read routine is initiated register address is mask with 0x80*/
+	/*read routine is initiated register address is mask with 0x80*/
+	array[BMM050_INIT_VALUE] = reg_addr|MASK_DATA2;
 	/*
 	* Please take the below function as your reference for
 	* read the data using SPI communication
@@ -360,24 +382,26 @@ s8 BMM050_SPI_bus_read(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
 	* iError is an return value of SPI read function
 	* Please select your valid return value
 	* In the driver SUCCESS defined as BMM050_INIT_VALUE
-    * and FAILURE defined as -1
+	* and FAILURE defined as -1
 	* Note :
 	* This is a full duplex operation,
 	* The first read data is discarded, for that extra write operation
-	* have to be initiated. For that cnt+C_BMM050_ONE_U8X operation done in the SPI read
+	* have to be initiated. For that cnt+C_BMM050_ONE_U8X operation done
+	* in the SPI read
 	* and write string function
 	* For more information please refer data sheet SPI communication:
 	*/
-	for (stringpos = BMM050_INIT_VALUE; stringpos < cnt; stringpos++) {
+	for (stringpos = BMM050_INIT_VALUE; stringpos < cnt; stringpos++)
 		*(reg_data + stringpos) = array[stringpos+C_BMM050_ONE_U8X];
-	}
+
 	return (s8)iError;
 }
 
 /*	\Brief: The function is used as SPI bus write
  *	\Return : Status of the SPI write
  *	\param dev_addr : The device address of the sensor
- *	\param reg_addr : Address of the first register, will data is going to be written
+ *	\param reg_addr : Address of the first register,
+ *		will data is going to be written
  *	\param reg_data : It is a value hold in the array,
  *		will be used for write the value into the register
  *	\param cnt : The no of byte of data to be write
@@ -387,12 +411,14 @@ s8 BMM050_SPI_bus_write(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
 	s32 iError = BMM050_INIT_VALUE;
 	u8 array[SPI_BUFFER_LEN * C_BMM050_TWO_U8X];
 	u8 stringpos = BMM050_INIT_VALUE;
+
 	for (stringpos = BMM050_INIT_VALUE; stringpos < cnt; stringpos++) {
-		/* the operation of (reg_addr++)&0x7F done: because it ensure the
-		   BMM050_INIT_VALUE and C_BMM050_ONE_U8X of the given value
-		   It is done only for 8bit operation*/
+		/* the operation of (reg_addr++)&0x7F done: because it ensure
+	the BMM050_INIT_VALUE and C_BMM050_ONE_U8X of the given value
+	It is done only for 8bit operation*/
 		array[stringpos * C_BMM050_TWO_U8X] = (reg_addr++) & MASK_DATA3;
-		array[stringpos * C_BMM050_TWO_U8X + C_BMM050_ONE_U8X] = *(reg_data + stringpos);
+		array[stringpos * C_BMM050_TWO_U8X + C_BMM050_ONE_U8X] =
+		*(reg_data + stringpos);
 	}
 	/* Please take the below function as your reference
 	 * for write the data using SPI communication

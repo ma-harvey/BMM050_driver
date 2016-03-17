@@ -1,10 +1,10 @@
 /*
 ****************************************************************************
-* Copyright (C) 2011 - 2015 Bosch Sensortec GmbH
+* Copyright (C) 2015 - 2016 Bosch Sensortec GmbH
 *
 * bmm050.c
-* Date: 2015/08/19
-* Revision: 2.0.5 $
+* Date: 2016/03/17
+* Revision: 2.0.6 $
 *
 * Usage: Sensor Driver for  BMM050 and BMM150 sensor
 *
@@ -50,9 +50,11 @@
 * patent rights of the copyright holder.
 **************************************************************************/
 /****************************************************************************/
+
+
 #include "bmm050.h"
 
-static struct bmm050 *p_bmm050;
+static struct bmm050_t *p_bmm050;
 /*!
  *	@brief This function is used for initialize
  *	bus read and bus write functions
@@ -74,7 +76,7 @@ static struct bmm050 *p_bmm050;
  *
  *
 */
-BMM050_RETURN_FUNCTION_TYPE bmm050_init(struct bmm050 *bmm050)
+BMM050_RETURN_FUNCTION_TYPE bmm050_init(struct bmm050_t *bmm050)
 {
 	/* variable used to return the bus communication result*/
 	BMM050_RETURN_FUNCTION_TYPE com_rslt = ERROR;

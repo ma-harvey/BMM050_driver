@@ -1,13 +1,13 @@
 /** \mainpage
 *
 ****************************************************************************
-* Copyright (C) 2011 - 2015 Bosch Sensortec GmbH
+* Copyright (C) 2015 - 2016 Bosch Sensortec GmbH
 *
 * File : bmm050.h
 *
-* Date : 2015/05/21
+* Date : 2016/03/17
 *
-* Revision : 2.0.4 $
+* Revision : 2.0.5 $
 *
 * Usage: Sensor Driver for BMM050 and BMM150 sensor
 *
@@ -54,6 +54,7 @@
 * patent rights of the copyright holder.
 **************************************************************************/
 /****************************************************************************/
+
 /*! \file bmm050.h
     \brief BMM050 Sensor Driver Support Header File */
 
@@ -988,7 +989,7 @@ struct bmm050_remapped_mag_data_float_t {
 /*!
  * @brief Structure containing mag initial parameters
  */
-struct bmm050 {
+struct bmm050_t {
 	u8 company_id;/**<mag chip id*/
 	u8 dev_addr;/**<mag device address*/
 
@@ -1039,7 +1040,7 @@ struct bmm050 {
  *
  *
 */
-BMM050_RETURN_FUNCTION_TYPE bmm050_init(struct bmm050 *bmm050);
+BMM050_RETURN_FUNCTION_TYPE bmm050_init(struct bmm050_t *bmm050);
 /********************************************/
 /**\name DATA READ FUNCTIONS  */
 /********************************************/
