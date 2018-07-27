@@ -1053,6 +1053,7 @@ BMM050_RETURN_FUNCTION_TYPE bmm050_init(struct bmm050_t *bmm050);
  *
  *
  *  @param  mag_data : The data of mag compensated XYZ data
+ *                     with 16 * micro-teslas scaling factor
  *
  *
  *	@return results of bus communication function
@@ -1073,6 +1074,7 @@ struct bmm050_mag_data_s16_t *mag_data);
  *
  *
  *  @param  mag_data : The data of remapped compensated mag xyz data
+ *                     with 16 * micro-teslas scaling factor
  *
  *
  *	@return results of bus communication function
@@ -1089,6 +1091,7 @@ struct bmm050_remapped_mag_s16_data_t *mag_data);
  *
  *
  *  @param mag_data : The data of compensated XYZ data
+ *                     with 16 * micro-teslas scaling factor
  *
  *
  *	@return results of bus communication function
@@ -1594,6 +1597,7 @@ BMM050_RETURN_FUNCTION_TYPE bmm050_set_presetmode(u8 v_presetmode_u8);
  *	@param  data_r : The value of R data
  *
  *	@return results of compensated X data value output as s16
+ *              with 16 * micro-teslas scaling factor
  *
 */
 s16 bmm050_compensate_X(s16 mag_data_x, u16 data_r);
@@ -1638,6 +1642,7 @@ float bmm050_compensate_X_float(s16 mag_data_x, u16 data_r);
  *	@param  data_r : The value of R data
  *
  *	@return results of compensated Y data value output as s16
+ *              with 16 * micro-teslas scaling factor
  *
 */
 s16 bmm050_compensate_Y(s16 mag_data_y, u16 data_r);
@@ -1682,6 +1687,7 @@ float bmm050_compensate_Y_float(s16 mag_data_y, u16 data_r);
  *	@param  data_r : The value of R data
  *
  *	@return results of compensated Z data value output as s16
+ *              with 16 * micro-teslas scaling factor
  *
 */
 s16 bmm050_compensate_Z(s16 mag_data_z, u16 data_r);
